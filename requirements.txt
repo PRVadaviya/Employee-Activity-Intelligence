@@ -1,0 +1,11 @@
+apache-airflow
+dbt-core
+dbt-snowflake
+snowflake-connector-python
+snowflake-sqlalchemy
+sqlalchemy
+pandas
+boto3
+requests
+python-dotenv
+psycopg2-binary
