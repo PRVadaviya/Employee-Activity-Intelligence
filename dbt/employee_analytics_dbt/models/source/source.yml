@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+   - name: AUDIT
+     database: EMP_ANALYTICS
+     schema: AUDIT
+     tables:
+        - name: RAW_ATTENDANCE
