@@ -40,14 +40,15 @@ def normalize_date(value):
         return None
     return pd.Timestamp(value).date()
 
+
 # Snowflake Connection
 snowflake_conn = connect(
-    user='PRATIKVADAVIYA',
-    password='LLL@tik9681LLL',
-    account='cxevtao-zu24764',
-    warehouse='COMPUTE_WH',
-    database='EMP_ANALYTICS',
-    schema='AUDIT'
+    user=os.getenv("SNOWFLAKE_USER"),
+    password=os.getenv("SNOWFLAKE_PASSWORD"),
+    account=os.getenv("SNOWFLAKE_ACCOUNT"),
+    warehouse=os.getenv("SNOWFLAKE_WAREHOUSE"),
+    database=os.getenv("SNOWFLAKE_DATABASE"),
+    schema=os.getenv("SNOWFLAKE_SCHEMA")
 )
 
 cursor = snowflake_conn.cursor()
