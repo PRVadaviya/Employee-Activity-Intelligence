@@ -7,3 +7,4 @@ sources:
      tables:
         - name: RAW_ATTENDANCE
         - name: RAW_EMPLOYEES_TASKS
+        - name: RAW_EMPLOYEES_DATA

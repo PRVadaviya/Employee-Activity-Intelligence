@@ -1,5 +1,6 @@
 /dbt/logs
 /airflow/dags/__pycache__
+/scripts/__pycache__
 /airflow/.env
 .vscode
 logs
