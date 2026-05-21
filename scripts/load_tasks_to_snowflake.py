@@ -2,15 +2,18 @@ import os
 
 from sqlalchemy import create_engine
 from snowflake.connector import connect
+from dotenv import load_dotenv
 import pandas as pd
 
+# Load environment variables from .env file
+load_dotenv()  
 
 # PostgreSQL Connection
-postgres_host = os.getenv("POSTGRES_HOST", "employee_postgres")
-postgres_port = os.getenv("POSTGRES_PORT", "5432")
-postgres_user = os.getenv("POSTGRES_USER", "admin")
-postgres_password = os.getenv("POSTGRES_PASSWORD", "admin")
-postgres_db = os.getenv("POSTGRES_DB", "employee_db")
+postgres_host = os.getenv("POSTGRES_HOST")
+postgres_port = os.getenv("POSTGRES_PORT")
+postgres_user = os.getenv("POSTGRES_USER")
+postgres_password = os.getenv("POSTGRES_PASSWORD")
+postgres_db = os.getenv("POSTGRES_DB")
 
 postgres_engine = create_engine(
     f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
