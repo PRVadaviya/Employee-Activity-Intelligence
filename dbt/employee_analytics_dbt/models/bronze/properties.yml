@@ -4,3 +4,6 @@ models:
   - name: raw_attendance
     config:
       materialized: table
+  - name: raw_employees_tasks
+    config:
+      materialized: table

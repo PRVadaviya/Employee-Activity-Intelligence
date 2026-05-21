@@ -6,3 +6,4 @@ sources:
      schema: AUDIT
      tables:
         - name: RAW_ATTENDANCE
+        - name: RAW_EMPLOYEES_TASKS
