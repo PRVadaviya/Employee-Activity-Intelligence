@@ -1,2 +1,4 @@
 /dbt/logs
 /airflow/.env
+.vscode
+logs
