@@ -8,3 +8,11 @@ sources:
         - name: RAW_ATTENDANCE
         - name: RAW_EMPLOYEES_TASKS
         - name: RAW_EMPLOYEES_DATA
+
+   - name: BRONZE
+     database: EMP_ANALYTICS
+     schema: BRONZE
+     tables:
+        - name: RAW_ATTENDANCE
+        - name: RAW_EMPLOYEES_TASKS
+        - name: RAW_EMPLOYEES_DATA

@@ -54,7 +54,7 @@ x-airflow-common:
     dockerfile: Dockerfile
   # build: .
   env_file:
-    - ${ENV_FILE_PATH:-.env}
+    - ../.env
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor

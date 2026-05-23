@@ -1,9 +1,10 @@
 import os
-from dotenv import load_dotenv
+
+# from dotenv import load_dotenv     # for the airflow environment take from the .env file, but if run in local then uncommit line
 from snowflake.connector import connect
 
 # Load environment variables from .env file
-load_dotenv()  
+# load_dotenv()                      # for the airflow environment take from the .env file, but if run in local then uncommit line
 
 def build_snowflake_connection():
      print("Building Snowflake connection...")
