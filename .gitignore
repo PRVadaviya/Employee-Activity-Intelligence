@@ -1,4 +1,8 @@
 /dbt/logs
+/airflow/dags/__pycache__
+/scripts/api_ingestion/__pycache__
+/scripts/postgres_ingestion/__pycache__
 /airflow/.env
 .vscode
 logs
+.env
