@@ -13,7 +13,7 @@ def employee_api_pipeline():
              
      @task.bash
      def load_employee_data_to_snowflake():
-          return "python /opt/airflow/scripts/api_ingestion/load_employees_data_into_snowflake.py"
+          return "python /opt/airflow/scripts/api_ingestion/load_employees_data_to_snowflake.py"
      
      @task.bash
      def run_dbt_models():

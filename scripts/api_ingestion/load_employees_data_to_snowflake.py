@@ -1,9 +1,13 @@
-from connect_snowflake import build_snowflake_connection
+from scripts.Connection.connect_snowflake import build_snowflake_connection
 from fetch_employees_from_api import fetch_employee_data
 
+# Fetch Data from API
 employee_data = fetch_employee_data()
+
+# Snowflake Connection
 snowflake_connection, cursor = build_snowflake_connection()
 
+# Load Data into Snowflake
 def load_employee_data_to_snowflake():
      # Truncate the target table before inserting new data
      truncate_query = "TRUNCATE TABLE raw_employees_data"
@@ -13,18 +17,18 @@ def load_employee_data_to_snowflake():
      # Insert Data into Snowflake
      insert_query = """
      INSERT INTO raw_employees_data (
-     id,
-     first_name,
-     last_name,
-     maiden_name,
-     age,
-     gender,
-     email,
-     phone,
-     username,
-     birth_date,
-     department,
-     title
+          id,
+          first_name,
+          last_name,
+          maiden_name,
+          age,
+          gender,
+          email,
+          phone,
+          username,
+          birth_date,
+          department,
+          title
      )
      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
      """
@@ -50,7 +54,10 @@ def load_employee_data_to_snowflake():
      cursor.executemany(insert_query, data_to_insert)
      print("Inserted employee data into Snowflake.")
 
-     snowflake_connection.commit()
-     print("Employee data loaded into Snowflake successfully.")
+     # Close Connections
+     cursor.close()
+     snowflake_connection.close()
+
+     print("Pipeline completed successfully")
 
 load_employee_data_to_snowflake()
