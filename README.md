@@ -1,293 +1,185 @@
-# Employee Analytics Platform
+# Employee Attendance & Performance Analytics Platform
 
-A production-style end-to-end Data Engineering project built using Snowflake, dbt, Apache Airflow, Python, and AWS S3.
-
-This project simulates a real-world Employee Attendance & Performance Management System used by HR managers and leadership teams to monitor attendance, productivity, task completion, and appraisal insights.
+An enterprise-style End-to-End Data Engineering project built using Snowflake, dbt, Apache Airflow, and Python to analyze employee attendance, task performance, productivity, and workforce efficiency.
 
 ---
 
-# Project Objective
+## Project Overview
 
-The goal of this project is to design and build a scalable modern data platform that:
+This project simulates a real-world workforce analytics platform where employee data is ingested from APIs, relational databases, and CSV files, then transformed into business-ready analytical models for HR and management reporting.
 
-- Ingests data from multiple enterprise sources
-- Applies ELT transformations using dbt
-- Implements Medallion Architecture (Bronze → Silver → Gold)
-- Uses Airflow for orchestration
-- Builds analytics-ready dimensional models
-- Supports incremental loading and SCD Type 2
-- Generates business KPIs for reporting
+The platform follows a modern ELT architecture using:
+- Snowflake as Cloud Data Warehouse
+- dbt for transformations
+- Apache Airflow for orchestration
+- Python for ingestion pipelines
+- SQLAlchemy ORM for database mapping
 
 ---
 
-# Tech Stack
+## Business Goal
 
-| Technology | Purpose |
-|---|---|
-| Snowflake | Cloud Data Warehouse |
-| dbt | Data Transformation |
-| Apache Airflow | Workflow Orchestration |
-| Python | Data Ingestion & Automation |
-| AWS S3 | Raw Data Storage |
-| PostgreSQL | Source Database |
-| SQLAlchemy | ORM / Database Connectivity |
+The platform helps HR and management teams:
+- Monitor employee productivity
+- Analyze attendance and punctuality
+- Track task completion performance
+- Identify overdue tasks and work efficiency
+- Support appraisal and workforce decision-making
+
+---
+
+# Data Pipelines
+
+## 1. Employee Master Data Pipeline
+- Extracts employee data from REST APIs
+- Processes nested JSON responses using Python
+- Implements ORM-based data mapping
+- Handles new and updated employee records
+- Scheduled weekly using Apache Airflow
+
+## 2. Employee Task Performance Pipeline
+- Extracts task data from PostgreSQL
+- Implements incremental loading using dbt incremental models
+- Handles insert and update logic using timestamp-based tracking
+- Tracks task completion status, overdue tasks, and work-hour utilization
+- Scheduled daily using Airflow
+
+## 3. Employee Attendance Pipeline
+- Processes attendance datasets from CSV files
+- Analyzes punctuality, working hours, and attendance efficiency
+- Designed future-ready architecture for AWS S3 + Snowpipe integration
+- Supports HR appraisal and workforce analytics
 
 ---
 
 # Architecture
 
 ```text
-Sources
-(API / PostgreSQL / CSV / JSON)
-        ↓
-Python Extraction Layer
-        ↓
-AWS S3 Staging
-        ↓
-Snowflake Bronze Layer
-        ↓
-dbt Silver Transformations
-        ↓
-dbt Gold Layer (Facts & Dimensions)
-        ↓
-KPIs / Dashboards
+Source Systems
+ ├── REST APIs
+ ├── PostgreSQL
+ ├── CSV Files
+ │
+ ▼
+Python Ingestion Layer
+ │
+ ▼
+Snowflake Audit/Bronze Layer
+ │
+ ▼
+dbt Transformations
+(Silver Layer)
+ │
+ ▼
+Gold KPI Models
+ │
+ ▼
+HR & Workforce Analytics
 ```
-
----
-
-# Data Sources
-
-## 1. Attendance API
-- Daily attendance logs
-- Employee check-in/check-out data
-
-## 2. PostgreSQL Task Database
-- Task assignments
-- Work logs
-- Task completion status
-
-## 3. HR Files from S3
-- Employee master data
-- Department
-- Appraisal information
-
-## 4. Activity Logs
-- Login/logout events
-- Employee activity tracking
 
 ---
 
 # Medallion Architecture
 
-## Bronze Layer
-Raw ingestion layer.
-
-- Append-only
-- Minimal transformation
-- Raw source preservation
-
-Tables:
-- raw_attendance
-- raw_tasks
-- raw_employees
-- raw_activity_logs
-
----
+## Audit/Bronze Layer
+- Raw ingestion layer
+- Historical source storage
+- Staging tables for incremental processing
 
 ## Silver Layer
-Cleaned and standardized layer.
-
-Features:
-- Type casting
-- Deduplication
-- Null handling
-- Business rules
-
-Models:
-- stg_attendance
-- stg_tasks
-- stg_employees
-
----
+- Data cleansing and standardization
+- Deduplication and validation
+- Incremental transformations
 
 ## Gold Layer
-Analytics-ready business layer.
-
-Features:
-- Star schema
-- Fact tables
-- Dimension tables
-- KPI aggregations
-- SCD Type 2
-
-Tables:
-- fact_attendance
-- fact_task_log
-- dim_employee
-- dim_date
-- kpi_attendance_daily
+- KPI models
+- Productivity analytics
+- Attendance insights
+- Workforce reporting
 
 ---
 
 # Key Features
 
-- Multi-source ingestion
-- Incremental loading
-- SCD Type 2 snapshots
-- Airflow DAG orchestration
-- dbt tests & documentation
-- Snowflake Streams & Tasks
-- Data quality checks
-- KPI reporting layer
-- RBAC & security
-- Monitoring & logging
+- End-to-End ELT Pipeline
+- Multi-source Data Ingestion
+- Incremental Loading Strategy
+- dbt Incremental Models
+- Airflow Workflow Orchestration
+- Snowflake Data Warehouse
+- JSON Flattening & Transformation
+- ORM-Based Data Mapping
+- SCD Type 2 Concepts
+- Automated Scheduling & Monitoring
 
 ---
 
-# Airflow DAGs
+# Tech Stack
 
-| DAG | Purpose |
+| Technology | Usage |
 |---|---|
-| dag_attendance_ingestion | Attendance API ingestion |
-| dag_task_ingestion | PostgreSQL task ingestion |
-| dag_hr_file_ingestion | S3 HR file ingestion |
-| dag_dbt_transform | dbt model execution |
-| dag_data_quality | Data validation checks |
+| Snowflake | Cloud Data Warehouse |
+| dbt | Data Transformation |
+| Apache Airflow | Workflow Orchestration |
+| Python | Data Ingestion |
+| SQLAlchemy ORM | Database Mapping |
+| PostgreSQL | Operational Source Database |
+| AWS S3 | Future File Storage Integration |
+| SQL | Data Processing |
+| REST APIs | Employee Data Source |
 
 ---
 
-# dbt Features Used
+# KPI & Analytics
 
-- Incremental Models
-- Snapshots
-- Seeds
-- Macros
-- Tests
-- Sources
-- Documentation
-
----
-
-# Snowflake Features Used
-
-- Warehouses
-- External Stages
-- File Formats
-- Snowpipe
-- Streams & Tasks
-- Time Travel
-- RBAC
-- Clustering
+- Employee Productivity Analysis
+- Task Completion Rate
+- Overdue Task Monitoring
+- Attendance Efficiency
+- Punctuality Tracking
+- Work-Hour Utilization
+- HR Appraisal Insights
 
 ---
 
-# Folder Structure
+# Future Enhancements
+
+- Snowflake Streams & Tasks
+- Real-time Streaming Pipelines
+- Kafka Integration
+- Power BI / Tableau Dashboarding
+- CI/CD Pipeline Automation
+- Advanced Data Quality Monitoring
+
+---
+
+# Project Structure
 
 ```text
 employee-analytics-platform/
 │
 ├── airflow/
 │   ├── dags/
-│   └── logs/
+│   └── docker-compose.yaml
 │
 ├── dbt_project/
 │   ├── models/
-│   ├── snapshots/
-│   ├── tests/
 │   ├── macros/
-│   └── seeds/
-│
-├── snowflake/
-│   ├── ddl/
-│   ├── stages/
-│   ├── pipes/
-│   └── roles/
+│   └── snapshots/
 │
 ├── scripts/
+│   ├── api_ingestion/
+│   ├── postgres_ingestion/
+│   └── attendance_pipeline/
 │
 ├── datasets/
-│
-├── docs/
 │
 └── README.md
 ```
 
 ---
 
-# KPIs Generated
-
-- Attendance Rate
-- Late Login Percentage
-- Average Work Hours
-- Task Completion Rate
-- Department Productivity
-- Monthly Productivity Score
-- Appraisal Readiness
-
----
-
-# Future Improvements
-
-- Kafka streaming ingestion
-- CI/CD pipeline
-- Docker deployment
-- Terraform infrastructure
-- Real-time dashboards
-- Kubernetes deployment
-
----
-
-# How to Run
-
-## 1. Clone Repository
-
-```bash
-git clone <repo-url>
-```
-
-## 2. Setup Python Environment
-
-```bash
-pip install -r requirements.txt
-```
-
-## 3. Configure Snowflake Connection
-
-Update:
-- profiles.yml
-- Airflow Connections
-
-## 4. Run Airflow
-
-```bash
-airflow standalone
-```
-
-## 5. Run dbt
-
-```bash
-dbt run
-dbt test
-```
-
----
-
-# Project Status
-
-🚧 In Development
-
-Current Progress:
-- [ ] Snowflake setup
-- [ ] Bronze ingestion
-- [ ] dbt staging models
-- [ ] Gold marts
-- [ ] Airflow DAGs
-- [ ] KPI dashboards
-
----
-
 # Author
 
-Pratik Vadaviya
-
-Aspiring Data Engineer | Snowflake | dbt | Airflow | Python | SQL
+**Pratik Vadaviya**  
+Aspiring Data Engineer | Snowflake | dbt | Airflow | Python
